@@ -155,7 +155,7 @@ def setMedia(dir, files):
                             file_tmp.append(m)
                         # else:
                         #     print(m,'not video')
-                            
+                file_tmp.sort()
                 i[j] = file_tmp
 
     return list(filter(filterDir, files))
@@ -209,31 +209,9 @@ def reMoveFile(dir, files):
             # print(i[j],'ij')
             floder_files = getFolderFiles(path)
             if not folder:  # 判断是否存在文件夹如果不存在则创建为文件夹
-                nums = []
+                
                 os.makedirs(new_path)
-                for file in i[j]:
-                    print(file,'file')
-                    nums.append(getFolderNum(file))
-
-                    # if not isinstance(m, dict):
-                        # nums.append(getFolderNum(file))
-
-                for m in range(0, len(nums[0])):
-                    file_index = array_column(nums, m)
-                    if checkIncrementalArr(file_index):
-                        # To Do Rename
-                        for fi in range(0, len(file_index)):
-                            new_name = 'S01E'+file_index[fi]+'--'+i[j][fi]
-                            checkAssMove(path,new_path,floder_files,i[j][fi],new_name)
-                            shutil.move(os.path.join(path, i[j][fi]),  os.path.join(
-                                new_path, new_name))
-                            print(
-                                'remove '+path+i[j][fi] + ' TO '+new_path+new_name)
-                        print(file_index, 'file_index')
-                        break
-                    else:
-                        print('continue')
-                        continue
+                
 
                 # need_rename = True
                 # move 文件
@@ -241,6 +219,30 @@ def reMoveFile(dir, files):
                 # for m in i[j]:
 
                 #     print(m)
+            nums = []
+            for file in i[j]:
+                print(file,'file')
+                nums.append(getFolderNum(file))
+
+                    # if not isinstance(m, dict):
+                        # nums.append(getFolderNum(file))
+
+            for m in range(0, len(nums[0])):
+                file_index = array_column(nums, m)
+                if checkIncrementalArr(file_index):
+                    # To Do Rename
+                    for fi in range(0, len(file_index)):
+                        new_name = 'S01E'+file_index[fi]+'--'+i[j][fi]
+                        checkAssMove(path,new_path,floder_files,i[j][fi],new_name)
+                        shutil.move(os.path.join(path, i[j][fi]),  os.path.join(
+                            new_path, new_name))
+                        print(
+                            'remove '+path+i[j][fi] + ' TO '+new_path+new_name)
+                    print(file_index, 'file_index')
+                    break
+                else:
+                    print('continue')
+                    continue
         # if need_rename:
 
 
